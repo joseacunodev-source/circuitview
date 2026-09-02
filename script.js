@@ -328,6 +328,8 @@ function updateScrollDrivenCameras() {
     if (scrollRange <= 0) return;
 
     const progress = Math.min(1, Math.max(0, -rect.top / scrollRange));
+    const visibility = Math.min(1, Math.max(0, 1 - Math.abs(rect.top) / (vh * 1.2)));
+    state.el.style.setProperty("--bay-visibility", visibility.toFixed(3));
 
     if (!prefersReducedMotion && !state.userTookOver) {
       const theta = progress * 300;
