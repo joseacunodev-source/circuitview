@@ -2,7 +2,7 @@
 
 An interactive 3D field guide to common electronics components — Arduino, sensors, motor drivers, passives, and more. Every part is a real, spinnable 3D model you can drag and inspect, with a plain-language description of what it does and where it's used.
 
-**Live site:** _add your GitHub Pages / hosting link here once deployed_
+**Live site:** https://joseacunodev-source.github.io/circuitview/
 
 ## Running locally
 
