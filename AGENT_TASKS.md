@@ -61,6 +61,8 @@ Then visit `http://localhost:8000`.
 ### Notes
 - [x] The project is now aligned with the intended repo structure for deployment from the repository root.
 - [x] Files were restored into the root directory so the site can be served directly from GitHub Pages.
+- [x] Scroll-driven section reveals were tuned to trigger sooner and feel less sluggish.
+- [x] Bay card motion now alternates from opposite directions and preserves alignment on smaller viewports.
 
 ---
 

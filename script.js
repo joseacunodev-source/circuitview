@@ -355,15 +355,6 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 updateScrollDrivenCameras();
 
-if (window.Lenis && !prefersReducedMotion) {
-  const lenis = new window.Lenis({ duration: 1.1, smoothWheel: true });
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-}
-
 function updateActiveNav() {
   let closest = null;
   let closestDist = Infinity;
