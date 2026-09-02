@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CircuitView — Electronics Components in 3D</title>
+<meta name="description" content="An interactive 3D field guide to common electronics components — Arduino, sensors, drivers, and more." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- model-viewer, for rendering the .glb files -->
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+
+<!-- Lenis: adds inertia to native scroll. Purely additive — if this fails
+     to load (offline, blocked CDN), the site falls back to normal scroll. -->
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<!-- Sets the saved theme before first paint, to avoid a flash of the wrong theme -->
+<script>
+  (function () {
+    var saved = localStorage.getItem("circuitview-theme");
+    document.documentElement.setAttribute("data-theme", saved || "dark");
+  })();
+</script>
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Intro loading screen -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__brand">CIRCUITVIEW</div>
+  <div class="loader__bar"><div class="loader__fill" id="loader-fill"></div></div>
+  <div class="loader__pct" id="loader-pct">0%</div>
+</div>
+
+<!-- Hidden SVG filter defs, reused by the sketch theme for hand-drawn wobble -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="sketchWobble" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4"/>
+  </filter>
+</svg>
+
+<!-- Fixed HUD top bar -->
+<header class="hud-bar">
+  <div class="hud-bar__brand">
+    <span class="hud-bar__dot"></span>
+    CIRCUITVIEW
+  </div>
+  <nav class="hud-bar__nav" id="quick-nav" aria-label="Jump to component"></nav>
+  <div class="theme-switch" role="group" aria-label="Display mode">
+    <button type="button" data-theme-choice="light" data-dot-burst>Light</button>
+    <button type="button" data-theme-choice="dark" data-dot-burst>Dark</button>
+    <button type="button" data-theme-choice="sketch" data-dot-burst>Sketch</button>
+  </div>
+</header>
+
+<!-- Right-edge signal rail: tracks scroll position across all parts -->
+<aside class="rail" id="rail" aria-hidden="true"></aside>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero__scanlines"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">A field guide, in three dimensions</p>
+    <h1 class="hero__title">Turn it over.<br>See how it works.</h1>
+    <p class="hero__sub">
+      Twelve components from a typical maker's drawer — modeled, labeled, and
+      spinning right in your browser. Drag any part to rotate it, and scroll
+      to move through the bench.
+    </p>
+    <a href="#bay-arduino-uno" class="hero__cta" data-dot-burst>Start the bench walkthrough ↓</a>
+  </div>
+</section>
+
+<!-- Marquee ticker: every component, looping, click to jump -->
+<div class="marquee" id="marquee">
+  <div class="marquee__track" id="marquee-track"></div>
+</div>
+
+<!-- Component bays are generated into here by script.js from components.js -->
+<main id="bays"></main>
+
+<footer class="site-footer">
+  <p>Built for makers, by makers. Models rendered client-side — nothing you drag ever leaves your browser.</p>
+  <p class="site-footer__repo">github.com/joseacunodev-source/circuitview</p>
+</footer>
+
+<script src="components.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
